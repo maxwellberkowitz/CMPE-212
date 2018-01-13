@@ -6,6 +6,9 @@
  */
 public class TestIOHelper {
 
+	/**
+	 * 
+	 */
 	private static void testIntInput () {
 		
 		int low = -100;
@@ -63,11 +66,19 @@ public class TestIOHelper {
 		System.out.println("Obtained: " + num);		
 		
 	} // end testDoubleInput method
+	
+	public static void testStringInput()
+	{
+		String prompt = "Please type anything here, then press enter: ";
+		String userText = IOHelper.getString(prompt);
+		System.out.println("Obtained: " + userText);
+	}
 
 	public static void main(String[] args) {
 
-		testIntInput();
-		testDoubleInput();
+		// testIntInput();
+		// testDoubleInput();
+		testStringInput();
 				
 		System.out.println("\nAll done testing!");
 	
