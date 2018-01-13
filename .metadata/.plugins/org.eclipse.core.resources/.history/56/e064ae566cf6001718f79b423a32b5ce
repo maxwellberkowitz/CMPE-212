@@ -1,0 +1,15 @@
+import java.util.Scanner;
+
+public class Part4 {
+
+	public static void main(String[] args) {
+		int userNum;
+		Scanner screen = new Scanner(System.in);
+		System.out.print("Enter a number: ");
+		userNum = screen.nextInt();
+		userNum = userNum + 20;
+		System.out.println("Your number plus 20 is " + userNum);
+		screen.close();
+	} // end main method
+
+} // end Part4 class
