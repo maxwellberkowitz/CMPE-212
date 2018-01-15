@@ -61,6 +61,7 @@ public class IOHelper {
 	{
 		double userNum=0;
 		boolean inputOK = false;
+		@SuppressWarnings("unused")
 		String dummy;
 		do
 		{

@@ -9,6 +9,7 @@ public class TestIOHelper {
 	/**
 	 * 
 	 */
+	@SuppressWarnings("unused")
 	private static void testIntInput () {
 		
 		int low = -100;
@@ -38,6 +39,7 @@ public class TestIOHelper {
 		
 	} // end testIntInput method
 	
+	@SuppressWarnings("unused")
 	private static void testDoubleInput () {
 		
 		double low = -100;
