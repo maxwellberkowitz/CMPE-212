@@ -7,6 +7,7 @@ public class Assn1_20019830 {
 																		  // it seems weird to instantiate it every time
 																		  // that diceRoll is called...
 	static Scanner input = new Scanner(System.in); // Scanner to be used to acquire user input in various methods
+	
 	// Method generates random integers between 1 and 6 to represent dice rolling
 	public static int[] diceRoll(int dice[]) {
 			dice[0] = 1 + random.nextInt(6);
@@ -26,10 +27,10 @@ public class Assn1_20019830 {
 		{
 			System.out.println("Player's sum is: " + playerSum + ", Computer's sum is " + compSum);
 			if(playerTurn == true)
-				playerSum = playerTurn(dice, playerSum, false);
+				playerSum += playerTurn(dice, playerSum, false);
 				
 			else
-				compSum = compTurn(dice, compSum);
+				compSum += compTurn(dice, compSum);
 			playerTurn = !playerTurn;
 		}
 		endGame(playerSum, compSum);
@@ -40,7 +41,7 @@ public class Assn1_20019830 {
 			System.out.println("You win! Your final score is " + playerSum + ". The computer's final score is " + compSum);
 		else
 			System.out.println("The computer wins! Your final score is " + playerSum + ". The computer's final score is " + compSum);
-	}
+	} // end endGame method
 	
 	public static int playerTurn(int dice[], int playerSum, boolean multiRoll) {
 		System.out.println("Press Enter to roll.");
@@ -48,36 +49,37 @@ public class Assn1_20019830 {
 		dice = diceRoll(dice);
 		System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
 		boolean reroll = rules(dice, playerSum, "You");
-		int rollSum = 0;
-		rollSum = sum(dice, rollSum);
-		if(reroll) {
-			int extraRoll = playerTurn(dice, rollSum, true);
-			if(extraRoll == 0)
-				return 0;
-			else {
-				rollSum += extraRoll;
-				return rollSum;
-			}
+		int turnSum = 0;
+		turnSum = sum(dice);
+		while(reroll) {
+			System.out.println("Press Enter to roll.");
+			detectEnter();
+			dice = diceRoll(dice);
+			System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
+			reroll = rules(dice, playerSum, "You");
+			if(sum(dice) == 0)
+				turnSum = 0;
+			turnSum += sum(dice);
 		}
-		else if(multiRoll)
-			return rollSum;
-		return playerSum + rollSum;
+		return turnSum;
 	} // end playerTurn method
 	
 	public static int compTurn(int dice[], int compSum) {
 		dice = diceRoll(dice);
+		int turnSum = 0;
+		turnSum = sum(dice);
 		System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
-		boolean reroll = rules(dice, compSum, "The computer");
-		int rollSum = 0;
-		rollSum = sum(dice, rollSum);
-		if(reroll) {
-			int extraRoll = compTurn(dice, rollSum);
-			if(extraRoll == 0)
-				rollSum = 0;
-			else
-				rollSum += extraRoll;
+		boolean reroll = rules(dice, turnSum, "The computer");
+		while(reroll) {
+			dice = diceRoll(dice);
+			System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
+			reroll = rules(dice, turnSum + sum(dice), "The computer");
+			if(sum(dice) == 0)
+				turnSum = 0;
+			else 
+				turnSum += sum(dice);
 		}
-		return compSum + rollSum;
+		return turnSum;
 	} // end compTurn method
 	
 	public static void detectEnter() {
@@ -115,7 +117,7 @@ public class Assn1_20019830 {
 	}
 	
 	public static boolean compChoice(int sum) {
-		if(sum < 40) {
+		if(sum < 10) {
 			System.out.println("The computer chose to play again.");
 			return true;
 		}
@@ -128,17 +130,21 @@ public class Assn1_20019830 {
 	public static String getString(String prompt)
 	{
 		System.out.println(prompt);
-		String userString = input.nextLine();
-		if(userString.equals("y") || userString.equals("n")) {
-			return userString;
+		String userString = new String();
+		boolean validInput = false;
+		while(!validInput) {
+			userString = input.nextLine();
+			if(userString.equals("y") || userString.equals("n"))
+				validInput = true;
+			else {
+				System.out.println("Invalid input! Enter 'y' or 'n':");
+			}
 		}
-		else {
-			getString("Invalid input; (Enter 'y' or 'n'): ");
-			return userString;
-		}
+		return userString;
 	} // end getString method
 	
-	public static int sum(int dice[], int sum) {
+	public static int sum(int dice[]) {
+		int sum;
 		if(dice[0] == 1 && dice[1] == 1) {
 			sum = 25;
 		}
