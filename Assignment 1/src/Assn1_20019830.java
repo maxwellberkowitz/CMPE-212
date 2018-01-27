@@ -20,31 +20,60 @@ public class Assn1_20019830 {
 		int compSum = 0;
 		boolean playerTurn = true;
 		System.out.println("Welcome to pig! The first player to 100 or more points wins.\n"
-				+ "You go first.\nPress Enter to roll the dice.");
+				+ "You go first.");
 		while(playerSum < 100 && compSum < 100)
 		{
 			System.out.println("Player's sum is: " + playerSum + ", Computer's sum is " + compSum);
 			if(playerTurn == true)
-				playerSum = playerTurn(dice);
+				playerSum = playerTurn(dice, playerSum);
 				
 			else
-				compSum = compTurn(dice);
+				compSum = compTurn(dice, compSum);
 			playerTurn = !playerTurn;
 		}
-		
+		endGame(playerSum, compSum);
 	} // end startGame method
+	
+	public static void endGame(int playerSum, int compSum) {
+		if(playerSum > compSum)
+			System.out.println("You win! Your final score is " + playerSum + ". The computer's final score is " + compSum);
+		else
+			System.out.println("The computer wins! Your final score is " + playerSum + ". The computer's final score is " + compSum);
+	}
 	
 	public static int playerTurn(int dice[], int playerSum) {
 		System.out.println("Press Enter to roll.");
 		detectEnter();
 		diceRoll(dice);
 		System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
-		playerSum =
-		boolean reroll = rules(dice, "You");
-		if(reroll)
-			playerTurn(dice, playerSum);
-		return playerSum;
+		boolean reroll = rules(dice, playerSum, "You");
+		int rollSum = 0;
+		rollSum = sum(dice, rollSum);
+		if(reroll) {
+			int extraRoll = playerTurn(dice, rollSum);
+			if(extraRoll == 0)
+				rollSum = 0;
+			else
+				rollSum += extraRoll;
+		}
+		return playerSum + rollSum;
 	} // end playerTurn method
+	
+	public static int compTurn(int dice[], int compSum) {
+		diceRoll(dice);
+		System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
+		boolean reroll = rules(dice, compSum, "The computer");
+		int rollSum = 0;
+		rollSum = sum(dice, rollSum);
+		if(reroll) {
+			int extraRoll = compTurn(dice, rollSum);
+			if(extraRoll == 0)
+				rollSum = 0;
+			else
+				rollSum += extraRoll;
+		}
+		return compSum + rollSum;
+	} // end compTurn method
 	
 	public static void detectEnter() {
 		String enterKey = input.nextLine();
@@ -53,9 +82,9 @@ public class Assn1_20019830 {
 		}
 	} // end detectEnter method
 	
-	public static boolean rules (int dice[], String player) {
+	public static boolean rules (int dice[], int sum ,String player) {
 		if(dice[0] == 1 && dice[1] == 1) {
-			System.out.println("Snake eyes! " + " must roll again!");
+			System.out.println("Snake eyes! " + player + " must roll again!");
 			return true;
 		}
 		else if(dice[0] == dice[1]) {
@@ -67,23 +96,35 @@ public class Assn1_20019830 {
 			return false;
 		}
 		else {
-			String choice = getString("Roll again? (Enter 'y' or 'n'): ");
-			if(choice == "y") {
-				return true;
+			if(player.equals("You")) {
+				String choice = getString("Roll again? (Enter 'y' or 'n'): ");
+				if(choice.equals("y")) {
+					return true;
+				}
+				else
+					return false;
 			}
 			else
-				return false;
+				return compChoice(sum);
 		}
 	}
 	
-	public static int compTurn(int dice[], int compSum) {
-		
+	public static boolean compChoice(int sum) {
+		if(sum < 40) {
+			System.out.println("The computer chose to play again.");
+			return true;
+		}
+		else {
+			System.out.println("The computer chose not to play again.");
+			return false;
+		}
 	}
+	
 	public static String getString(String prompt)
 	{
 		System.out.println(prompt);
 		String userString = input.nextLine();
-		if(userString == "y" || userString == "n") {
+		if(userString.equals("y") || userString.equals("n")) {
 			return userString;
 		}
 		else {
