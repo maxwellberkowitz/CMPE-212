@@ -8,9 +8,10 @@ public class Assn1_20019830 {
 																		  // that diceRoll is called...
 	static Scanner input = new Scanner(System.in); // Scanner to be used to acquire user input in various methods
 	// Method generates random integers between 1 and 6 to represent dice rolling
-	public static void diceRoll(int dice[]) {
+	public static int[] diceRoll(int dice[]) {
 			dice[0] = 1 + random.nextInt(6);
 			dice[1] = 1 + random.nextInt(6);
+			return dice;
 	} // end diceRoll method
 	
 	// Method called to begin the game.
@@ -25,7 +26,7 @@ public class Assn1_20019830 {
 		{
 			System.out.println("Player's sum is: " + playerSum + ", Computer's sum is " + compSum);
 			if(playerTurn == true)
-				playerSum = playerTurn(dice, playerSum);
+				playerSum = playerTurn(dice, playerSum, false);
 				
 			else
 				compSum = compTurn(dice, compSum);
@@ -41,26 +42,30 @@ public class Assn1_20019830 {
 			System.out.println("The computer wins! Your final score is " + playerSum + ". The computer's final score is " + compSum);
 	}
 	
-	public static int playerTurn(int dice[], int playerSum) {
+	public static int playerTurn(int dice[], int playerSum, boolean multiRoll) {
 		System.out.println("Press Enter to roll.");
 		detectEnter();
-		diceRoll(dice);
+		dice = diceRoll(dice);
 		System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
 		boolean reroll = rules(dice, playerSum, "You");
 		int rollSum = 0;
 		rollSum = sum(dice, rollSum);
 		if(reroll) {
-			int extraRoll = playerTurn(dice, rollSum);
+			int extraRoll = playerTurn(dice, rollSum, true);
 			if(extraRoll == 0)
-				rollSum = 0;
-			else
+				return 0;
+			else {
 				rollSum += extraRoll;
+				return rollSum;
+			}
 		}
+		else if(multiRoll)
+			return rollSum;
 		return playerSum + rollSum;
 	} // end playerTurn method
 	
 	public static int compTurn(int dice[], int compSum) {
-		diceRoll(dice);
+		dice = diceRoll(dice);
 		System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
 		boolean reroll = rules(dice, compSum, "The computer");
 		int rollSum = 0;
@@ -135,16 +140,16 @@ public class Assn1_20019830 {
 	
 	public static int sum(int dice[], int sum) {
 		if(dice[0] == 1 && dice[1] == 1) {
-			sum += 25;
+			sum = 25;
 		}
 		else if(dice[0] == dice[1]) {
-			sum += 2*(dice[0] + dice[1]);
+			sum = 2*(dice[0] + dice[1]);
 		}
 		else if(dice[0] == 1 || dice[1] == 1) {
 			sum = 0;
 		}
 		else {
-			sum += dice[0] + dice[1];
+			sum = dice[0] + dice[1];
 		}
 		return sum;
 	}
