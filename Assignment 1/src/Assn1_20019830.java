@@ -27,8 +27,7 @@ public class Assn1_20019830 {
 		{
 			System.out.println("Player's sum is: " + playerSum + ", Computer's sum is " + compSum);
 			if(playerTurn == true)
-				playerSum += playerTurn(dice, playerSum, false);
-				
+				playerSum += playerTurn(dice, playerSum);
 			else
 				compSum += compTurn(dice, compSum);
 			playerTurn = !playerTurn;
@@ -43,20 +42,20 @@ public class Assn1_20019830 {
 			System.out.println("The computer wins! Your final score is " + playerSum + ". The computer's final score is " + compSum);
 	} // end endGame method
 	
-	public static int playerTurn(int dice[], int playerSum, boolean multiRoll) {
+	public static int playerTurn(int dice[], int playerSum) {
 		System.out.println("Press Enter to roll.");
 		detectEnter();
 		dice = diceRoll(dice);
 		System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
-		boolean reroll = rules(dice, playerSum, "You");
 		int turnSum = 0;
+		boolean reroll = rules(dice, turnSum, playerSum, "You");
 		turnSum = sum(dice);
 		while(reroll) {
 			System.out.println("Press Enter to roll.");
 			detectEnter();
 			dice = diceRoll(dice);
 			System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
-			reroll = rules(dice, playerSum, "You");
+			reroll = rules(dice, turnSum, playerSum, "You");
 			if(sum(dice) == 0)
 				turnSum = 0;
 			turnSum += sum(dice);
@@ -69,11 +68,11 @@ public class Assn1_20019830 {
 		int turnSum = 0;
 		turnSum = sum(dice);
 		System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
-		boolean reroll = rules(dice, turnSum, "The computer");
+		boolean reroll = rules(dice, turnSum, compSum, "The computer");
 		while(reroll) {
 			dice = diceRoll(dice);
 			System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
-			reroll = rules(dice, turnSum + sum(dice), "The computer");
+			reroll = rules(dice, turnSum + sum(dice), compSum, "The computer");
 			if(sum(dice) == 0)
 				turnSum = 0;
 			else 
@@ -89,7 +88,7 @@ public class Assn1_20019830 {
 		}
 	} // end detectEnter method
 	
-	public static boolean rules (int dice[], int sum ,String player) {
+	public static boolean rules (int dice[], int sum , int totalSum, String player) {
 		if(dice[0] == 1 && dice[1] == 1) {
 			System.out.println("Snake eyes! " + player + " must roll again!");
 			return true;
@@ -112,12 +111,12 @@ public class Assn1_20019830 {
 					return false;
 			}
 			else
-				return compChoice(sum);
+				return compChoice(sum, totalSum);
 		}
 	}
 	
-	public static boolean compChoice(int sum) {
-		if(sum < 10) {
+	public static boolean compChoice(int turnSum, int compSum) {
+		if(turnSum < 10 && compSum < 100) {
 			System.out.println("The computer chose to play again.");
 			return true;
 		}
