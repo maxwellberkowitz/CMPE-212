@@ -46,7 +46,7 @@ public class Assn1_20019830 {
 		dice = diceRoll(dice);
 		int turnSum = 0;
 		turnSum = sum(dice);
-		System.out.println("Player rolled a " + dice[0] + " and a " + dice[1] + ". Your total score is " + (turnSum + playerSum) + ".");
+		System.out.println("Player rolled a " + getWord(dice[0]) + " and a " + getWord(dice[1]) + ". Your total score is " + (turnSum + playerSum) + ".");
 		boolean reroll = rules(dice, turnSum, playerSum, "Player");
 		while(reroll) {
 			System.out.println("Press Enter to roll.");
@@ -55,7 +55,7 @@ public class Assn1_20019830 {
 			if(sum(dice) == 0)
 				turnSum = 0;
 			turnSum += sum(dice);
-			System.out.println("Player rolled a " + dice[0] + " and a " + dice[1] + ". Your total score is " + (turnSum + playerSum) + ".");
+			System.out.println("Player rolled a " + getWord(dice[0]) + " and a " + getWord(dice[1]) + ". Your total score is " + (turnSum + playerSum) + ".");
 			reroll = rules(dice, turnSum, playerSum, "Player");
 		}
 		return turnSum;
@@ -65,11 +65,11 @@ public class Assn1_20019830 {
 		dice = diceRoll(dice);
 		int turnSum = 0;
 		turnSum = sum(dice);
-		System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1] + ".");
+		System.out.println("The computer rolled a " + getWord(dice[0]) + " and a " + getWord(dice[1]) + ".");
 		boolean reroll = rules(dice, turnSum, compSum, "The computer");
 		while(reroll) {
 			dice = diceRoll(dice);
-			System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1] + ".");
+			System.out.println("The computer rolled a " + getWord(dice[0]) + " and a " + getWord(dice[1]) + ".");
 			reroll = rules(dice, turnSum + sum(dice), compSum, "The computer");
 			if(sum(dice) == 0)
 				turnSum = 0;
@@ -155,6 +155,11 @@ public class Assn1_20019830 {
 			sum = dice[0] + dice[1];
 		}
 		return sum;
+	}
+	
+	public static String getWord(int num) {
+		String nums [] = {"one", "two", "three", "four", "five", "six"};
+		return nums[num-1];
 	}
 	
 	public static void main(String[] args) {
