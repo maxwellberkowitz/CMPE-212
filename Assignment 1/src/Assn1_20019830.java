@@ -3,9 +3,7 @@ import java.util.Scanner;
 
 public class Assn1_20019830 {
 
-	public static Random random = new Random(System.currentTimeMillis()); // Should this be in the diceRoll method?
-																		  // it seems weird to instantiate it every time
-																		  // that diceRoll is called...
+	public static Random random = new Random(System.currentTimeMillis());
 	static Scanner input = new Scanner(System.in); // Scanner to be used to acquire user input in various methods
 	
 	// Method generates random integers between 1 and 6 to represent dice rolling
@@ -22,10 +20,10 @@ public class Assn1_20019830 {
 		int compSum = 0;
 		boolean playerTurn = true;
 		System.out.println("Welcome to pig! The first player to 100 or more points wins.\n"
-				+ "You go first.");
+				+ "You (player) go first.");
 		while(playerSum < 100 && compSum < 100)
 		{
-			System.out.println("Player's sum is: " + playerSum + ", Computer's sum is " + compSum);
+			System.out.println("\nPlayer's sum is: " + playerSum + ", Computer's sum is " + compSum + ".\n");
 			if(playerTurn == true)
 				playerSum += playerTurn(dice, playerSum);
 			else
@@ -37,28 +35,28 @@ public class Assn1_20019830 {
 	
 	public static void endGame(int playerSum, int compSum) {
 		if(playerSum > compSum)
-			System.out.println("You win! Your final score is " + playerSum + ". The computer's final score is " + compSum);
+			System.out.println("You win! Player final score is " + playerSum + ". The computer's final score is " + compSum + ".");
 		else
-			System.out.println("The computer wins! Your final score is " + playerSum + ". The computer's final score is " + compSum);
+			System.out.println("The computer wins! Player final score is " + playerSum + ". The computer's final score is " + compSum + ".");
 	} // end endGame method
 	
 	public static int playerTurn(int dice[], int playerSum) {
 		System.out.println("Press Enter to roll.");
 		detectEnter();
 		dice = diceRoll(dice);
-		System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
 		int turnSum = 0;
-		boolean reroll = rules(dice, turnSum, playerSum, "You");
 		turnSum = sum(dice);
+		System.out.println("Player rolled a " + dice[0] + " and a " + dice[1] + ". Your total score is " + (turnSum + playerSum) + ".");
+		boolean reroll = rules(dice, turnSum, playerSum, "Player");
 		while(reroll) {
 			System.out.println("Press Enter to roll.");
 			detectEnter();
 			dice = diceRoll(dice);
-			System.out.println("You rolled a " + dice[0] + " and a " + dice[1]);
-			reroll = rules(dice, turnSum, playerSum, "You");
 			if(sum(dice) == 0)
 				turnSum = 0;
 			turnSum += sum(dice);
+			System.out.println("Player rolled a " + dice[0] + " and a " + dice[1] + ". Your total score is " + (turnSum + playerSum) + ".");
+			reroll = rules(dice, turnSum, playerSum, "Player");
 		}
 		return turnSum;
 	} // end playerTurn method
@@ -67,11 +65,11 @@ public class Assn1_20019830 {
 		dice = diceRoll(dice);
 		int turnSum = 0;
 		turnSum = sum(dice);
-		System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
+		System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1] + ".");
 		boolean reroll = rules(dice, turnSum, compSum, "The computer");
 		while(reroll) {
 			dice = diceRoll(dice);
-			System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1]);
+			System.out.println("The computer rolled a " + dice[0] + " and a " + dice[1] + ".");
 			reroll = rules(dice, turnSum + sum(dice), compSum, "The computer");
 			if(sum(dice) == 0)
 				turnSum = 0;
@@ -102,7 +100,7 @@ public class Assn1_20019830 {
 			return false;
 		}
 		else {
-			if(player.equals("You")) {
+			if(player.equals("Player")) {
 				String choice = getString("Roll again? (Enter 'y' or 'n'): ");
 				if(choice.equals("y")) {
 					return true;
@@ -162,5 +160,4 @@ public class Assn1_20019830 {
 	public static void main(String[] args) {
 		startGame();
 	} // end main method
-
 }
