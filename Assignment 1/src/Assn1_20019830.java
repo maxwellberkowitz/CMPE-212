@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Assn1_20019830 {
 
 	public static Random random = new Random(System.currentTimeMillis()); // Random utilized in numerous methods
-	static Scanner input = new Scanner(System.in); // Scanner to be used to acquire user input in numerous methods
+	public static final Scanner input = new Scanner(System.in); // Scanner to be used to acquire user input in numerous methods
 	
 	// Method generates random integers between 1 and 6 to represent dice rolling
 	public static int[] diceRoll(int dice[]) {
