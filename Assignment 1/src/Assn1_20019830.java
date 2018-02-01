@@ -1,3 +1,12 @@
+/*
+ * A program to simulate a simple dice game, known as "Pig", between the user and the computer.
+ * The program prompts the user for choices regarding whether or not to roll again. The program
+ * terminates when the first player (user or computer) reaches a score equal to or greater than
+ * 100.
+ * 
+ * for CMPE212 Assignment 1, by Max Berkowitz
+ */
+
 import java.util.Random; // Importing utilities as necessary 
 import java.util.Scanner;
 
@@ -183,7 +192,7 @@ public class Assn1_20019830 {
 			sum = dice[0] + dice[1];
 		}
 		return sum;
-	}
+	} // end sum method
 	
 	// Method to translate integers into English word equivalents.
 	public static String getWord(int num) {
@@ -194,7 +203,7 @@ public class Assn1_20019830 {
 	// Main method left empty (aside from calling the beginning of the game).
 	// This was done intentionally such that if one wished to further develop
 	// this code, they could add content to the main program such as asking the
-	// user if they wished to play again.
+	// user if they wished to play again, or play a different game.
 	public static void main(String[] args) {
 		startGame();
 	} // end main method
