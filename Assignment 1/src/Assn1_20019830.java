@@ -28,8 +28,8 @@ public class Assn1_20019830 {
 		int playerSum = 0; // Initial player scores
 		int compSum = 0;
 		boolean playerTurn = true; // The user goes first
-		System.out.println("Welcome to pig! The first player to 100 or more points wins.\n"
-				+ "You (player) go first.");
+		System.out.println("Welcome to Pig! The first player to 100 or more points wins.\n"
+				+ "You go first.");
 		// Loop runs until end of game, changing player's turns and player's scores on each iteration.
 		while(playerSum < 100 && compSum < 100)  
 		{
@@ -57,15 +57,15 @@ public class Assn1_20019830 {
 	// A sum is calculated for the current turn, and returned to startGame() to be added
 	// to the player's total score
 	public static int playerTurn(int dice[], int playerSum) {
-		System.out.println("Press Enter to roll.");
-		input.nextLine(); // Waiting for user to press enter
+		System.out.println("Press <enter> to roll.");
+		input.nextLine(); // Waiting for user to press <enter>
 		dice = diceRoll(dice); // Generating new dice values
 		int turnSum = sum(dice); // Initial turn sum
 		System.out.println("You rolled a " + getWord(dice[0]) + " and a " + getWord(dice[1]) + ". Your total score is " + (turnSum + playerSum) + ".");
 		// Loop created to manage the re-roll functionality. Breaks when rules() returns
 		// false, either due to rolling a 1 or deciding not to roll again
 		while(rules(dice, turnSum, playerSum, "Player")) {
-			System.out.println("Press Enter to roll.");
+			System.out.println("Press <enter> to roll.");
 			input.nextLine(); 
 			dice = diceRoll(dice); // Generating new dice values
 			// If sum() returns zero, this indicates a single 1 has been 
@@ -127,7 +127,7 @@ public class Assn1_20019830 {
 			// the choice of deciding whether to play again
 			if(player.equals("Player")) {
 				String choice = getString("Roll again? (Enter 'y' or 'n'): ");
-				if(choice.equals("y")) {
+				if(choice.equalsIgnoreCase("y")) {
 					return true;
 				}
 				else
@@ -163,7 +163,7 @@ public class Assn1_20019830 {
 		// string indicating decision to re-roll
 		while(!validInput) {
 			userString = input.nextLine();
-			if(userString.equals("y") || userString.equals("n"))
+			if(userString.equalsIgnoreCase("y") || userString.equalsIgnoreCase("n"))
 				validInput = true;
 			else {
 				System.out.println("Invalid input! Enter 'y' or 'n':");
