@@ -4,7 +4,7 @@
  * terminates when the first player (user or computer) reaches a score equal to or greater than
  * 100.
  * 
- * for CMPE212 Assignment 1, by Max Berkowitz
+ * for CMPE212 Assignment 1, by Max Berkowitz (15mab25@queensu.ca)
  */
 
 import java.util.Random; // Importing utilities as necessary 
