@@ -15,13 +15,6 @@ public class Assn1_20019830 {
 	public static Random random = new Random(System.currentTimeMillis()); // Random utilized in numerous methods
 	public static final Scanner input = new Scanner(System.in); // Scanner to be used to acquire user input in numerous methods
 	
-	// Method generates random integers between 1 and 6 to represent dice rolling
-	public static int[] diceRoll(int dice[]) {
-			dice[0] = 1 + random.nextInt(6);
-			dice[1] = 1 + random.nextInt(6);
-			return dice;
-	} // end diceRoll method
-	
 	// Method called from main to begin the game. Will run until game terminates.
 	public static void startGame() {
 		int[] dice = new int[2]; // 1x2 array to represent the two dice
@@ -44,14 +37,6 @@ public class Assn1_20019830 {
 		}
 		endGame(playerSum, compSum);
 	} // end startGame method
-	
-	// Method to decide the winner of the game. Final method run before returning to main and terminating.
-	public static void endGame(int playerSum, int compSum) {
-		if(playerSum > compSum)
-			System.out.println("You win! Your final score is " + playerSum + ". The computer's final score is " + compSum + ".");
-		else
-			System.out.println("The computer wins! Your final score is " + playerSum + ". The computer's final score is " + compSum + ".");
-	} // end endGame method
 	
 	// Method intended to run until the player rolls a 1, or decides not to roll again.
 	// A sum is calculated for the current turn, and returned to startGame() to be added
@@ -153,24 +138,12 @@ public class Assn1_20019830 {
 		}
 	} // end compChoice method
 	
-	// Method employed to determine whether the user wishes to re-roll
-	public static String getString(String prompt)
-	{
-		System.out.println(prompt);
-		String userString = new String();
-		boolean validInput = false;
-		// Loop created such that game will pause until the user enters a valid
-		// string indicating decision to re-roll
-		while(!validInput) {
-			userString = input.nextLine();
-			if(userString.equalsIgnoreCase("y") || userString.equalsIgnoreCase("n"))
-				validInput = true;
-			else {
-				System.out.println("Invalid input! Enter 'y' or 'n':");
-			}
-		}
-		return userString;
-	} // end getString method
+	// Method generates random integers between 1 and 6 to represent dice rolling
+	public static int[] diceRoll(int dice[]) {
+			dice[0] = 1 + random.nextInt(6);
+			dice[1] = 1 + random.nextInt(6);
+			return dice;
+	} // end diceRoll method
 	
 	// Method for calculating the value of a roll, according to game rules.
 	public static int sum(int dice[]) {
@@ -194,11 +167,38 @@ public class Assn1_20019830 {
 		return sum;
 	} // end sum method
 	
+	// Method employed to determine whether the user wishes to re-roll
+	public static String getString(String prompt)
+	{
+		System.out.println(prompt);
+		String userString = new String();
+		boolean validInput = false;
+		// Loop created such that game will pause until the user enters a valid
+		// string indicating decision to re-roll
+		while(!validInput) {
+			userString = input.nextLine();
+			if(userString.equalsIgnoreCase("y") || userString.equalsIgnoreCase("n"))
+				validInput = true;
+			else {
+				System.out.println("Invalid input! Enter 'y' or 'n':");
+			}
+		}
+		return userString;
+	} // end getString method
+	
 	// Method to translate integers into English word equivalents.
 	public static String getWord(int num) {
 		String nums [] = {"one", "two", "three", "four", "five", "six"};
 		return nums[num-1];
 	} // end getWord method
+	
+	// Method to decide the winner of the game. Final method run before returning to main and terminating.
+	public static void endGame(int playerSum, int compSum) {
+		if(playerSum > compSum)
+			System.out.println("You win! Your final score is " + playerSum + ". The computer's final score is " + compSum + ".");
+		else
+			System.out.println("The computer wins! Your final score is " + playerSum + ". The computer's final score is " + compSum + ".");
+	} // end endGame method
 	
 	// Main method left empty (aside from calling the beginning of the game).
 	// This was done intentionally such that if one wished to further develop
