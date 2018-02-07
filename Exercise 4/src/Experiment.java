@@ -72,14 +72,37 @@ public class Experiment {
 		StandardOpenOption writeOpt = StandardOpenOption.WRITE;
 		StandardOpenOption createOpt = StandardOpenOption.CREATE;
 		try(FileChannel fc = FileChannel.open(file, readOpt, createOpt, writeOpt)){
-			
+			fc.position(0);
+			bytesWritten = fc.write(buff);
 		} catch (IOException e) {
 			System.out.println(e.getMessage());
 		}
 	}
 	public static void main(String[] args) {
+        // Using random file access, Java 7
+        int numNums = 10000;		// The size of the array
+        long startTime, runTime;	// Used to time the execution
+        String filename;			// The name of the file
+        double[] testArray = dArray(numNums);
 		
-		
+        // Plain text
+        filename = "TextFileBufferedWriter.txt";
+        startTime = System.nanoTime();
+        textFileWriter(filename, testArray);
+        runTime = System.nanoTime() - startTime;
+        displayResults(filename, runTime);
+        
+        filename = "BinaryObjectOutputStreamArray.dat";
+        startTime = System.nanoTime();
+        binaryFileWriter(filename, testArray);
+        runTime = System.nanoTime() - startTime;
+        displayResults(filename, runTime);
+        
+		filename = "BinaryRandomAccessFileJava7.dat";
+        startTime = System.nanoTime();
+        randomAccessBinaryOutput(filename, testArray);
+        runTime = System.nanoTime() - startTime;
+        displayResults(filename, runTime);
 	}
 
 }
