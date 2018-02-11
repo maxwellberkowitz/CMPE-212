@@ -31,11 +31,13 @@ public class Assn2_20019830 {
 			if(surgeAvgs.length < 1)
 				writer.println("Not used.");
 			else {
-				writer.println("start (sec), finish (sec), current (amps)");
+				writer.printf("start (sec), finish (sec), current (amps)");
 				for(int i = 0; i < surgeAvgs.length; i++) {
 					if(surgeAvgs[i] > 8)
 						currentExceeded = " ***Current Exceeded***";
-					writer.println(surgeTimes.get(i*2) + ", " + surgeTimes.get((i*2)+1) + ", " + surgeAvgs[i] + currentExceeded);
+					writer.printf("%n%d, %d, %.3f%s", surgeTimes.get(i*2), surgeTimes.get((i*2)+1), surgeAvgs[i], currentExceeded);
+					//writer.print(currentExceeded);
+					//writer.println(surgeTimes.get(i*2) + ", " + surgeTimes.get((i*2)+1) + ", " + surgeAvgs[i] + currentExceeded);
 					currentExceeded = "";
 				}
 			}
