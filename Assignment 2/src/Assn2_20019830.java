@@ -1,21 +1,10 @@
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
-import java.nio.ByteBuffer;
-import java.nio.DoubleBuffer;
-import java.nio.IntBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Assn2_20019830 {
@@ -29,8 +18,6 @@ public class Assn2_20019830 {
 		double [] allVals = getCol(readFileName, motorNumber);
 		ArrayList<Integer> surgeTimes = getSurgeTimes(allVals);
 		double [] surgeAvgs = getAvg(allVals , surgeTimes);
-		System.out.println("The surge times are " + surgeTimes);
-		System.out.println("The surge averages are " + surgeAvgs[0] + " " + surgeAvgs[1] + " " + surgeAvgs[2]);
 		textFileWriter(writeFileName, surgeAvgs, surgeTimes);
 	}
 
@@ -40,9 +27,17 @@ public class Assn2_20019830 {
 	public static void textFileWriter(String writeFileName, double[] surgeAvgs, ArrayList<Integer> surgeTimes) {
 		try {
 			PrintWriter writer = new PrintWriter(writeFileName, "UTF-8");
-			writer.println("start (sec), finish (sec), current (amps)");
-			for(int i = 0; i < surgeAvgs.length; i++) {
-				writer.println(surgeTimes.get(i*2) + ", " + surgeTimes.get((i*2)+1) + ", " + surgeAvgs[i]);
+			String currentExceeded = "";
+			if(surgeAvgs.length < 1)
+				writer.println("Not used.");
+			else {
+				writer.println("start (sec), finish (sec), current (amps)");
+				for(int i = 0; i < surgeAvgs.length; i++) {
+					if(surgeAvgs[i] > 8)
+						currentExceeded = " ***Current Exceeded***";
+					writer.println(surgeTimes.get(i*2) + ", " + surgeTimes.get((i*2)+1) + ", " + surgeAvgs[i] + currentExceeded);
+					currentExceeded = "";
+				}
 			}
 			writer.close();
 		} catch (FileNotFoundException e) {
@@ -99,7 +94,8 @@ public class Assn2_20019830 {
 				for (int j = 0; j < motorNumber; j++)
 					st.nextToken();
 				String str = st.nextToken();
-				str = str.substring(0, str.length() - 1);
+				if (str.charAt(str.length()-1) == ',')
+					str = str.substring(0, str.length() - 1);
 				allVals[i] = Double.parseDouble(str);
 				i++;
 			}
