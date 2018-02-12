@@ -19,7 +19,7 @@ public class Assn2_20019830 {
 		ArrayList<Integer> surgeTimes = getSurgeTimes(allVals);
 		double [] surgeAvgs = getAvg(allVals , surgeTimes);
 		textFileWriter(writeFileName, surgeAvgs, surgeTimes);
-	}
+	} // end writeSurgeData method 
 
 	// Method will write a set of surge times and average values for a given
 	// array to a text file. The array argument given will be the output of
@@ -34,7 +34,7 @@ public class Assn2_20019830 {
 				writer.printf("start (sec), finish (sec), current (amps)");
 				for(int i = 0; i < surgeAvgs.length; i++) {
 					if(surgeAvgs[i] > 8)
-						currentExceeded = " ***Current Exceeded***";
+						currentExceeded = ", ***Current Exceeded***";
 					writer.printf("%n%d, %d, %.3f%s", surgeTimes.get(i*2), surgeTimes.get((i*2)+1), surgeAvgs[i], currentExceeded);
 					//writer.print(currentExceeded);
 					//writer.println(surgeTimes.get(i*2) + ", " + surgeTimes.get((i*2)+1) + ", " + surgeAvgs[i] + currentExceeded);
@@ -49,7 +49,7 @@ public class Assn2_20019830 {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
+	} // end textFileWriter method
 
 	// Method will take array argument output from getSurgeTimes, calculate
 	// average values for each duration, and return them in a chronologically
@@ -64,11 +64,12 @@ public class Assn2_20019830 {
 			avgs[i] = avgs[i]/(surgeTimes.get((i*2)+1)-(surgeTimes.get(i*2)-1));
 		}
 		return avgs;
-	}
+	} // end getAvg method
 
-	// Method will return an array with the first and last seconds of all surges
+	// Method will return an ArrayList with the first and last seconds of all surges
 	// in a given motor. First second will immediately precede last second of a
-	// given surge. Array size will be an integer multiple of 2.
+	// given surge. ArrayList size will be an integer multiple of 2. ArrayList was
+	// used since number of surges (and thus array size) is unknown
 	public static ArrayList<Integer> getSurgeTimes(double[] allVals) {
 		ArrayList<Integer> surgeTimes = new ArrayList<Integer>();
 		boolean firstSurgeTimeFound = false;
@@ -82,8 +83,10 @@ public class Assn2_20019830 {
 			}
 		}
 		return surgeTimes;
-	}
-
+	} // end getSurgeTimes method
+	
+	// Method used to get a full column of current values for a given motor
+	// and return it as an array
 	public static double[] getCol(String readFileName, int motorNumber) {
 		double[] allVals = new double[1000];
 		String line = null;
@@ -108,7 +111,7 @@ public class Assn2_20019830 {
 			System.out.println("I/O Exception: " + e);
 		}
 		return allVals;
-	}
+	} // end getCol method
 
 	public static void main(String[] args) {
 		writeSurgeData("Logger.csv", "Motor1.csv", 1);
@@ -118,6 +121,6 @@ public class Assn2_20019830 {
 		writeSurgeData("Logger.csv", "Motor5.csv", 5); 
 		writeSurgeData("Logger.csv", "Motor6.csv", 6); 
 		writeSurgeData("Logger.csv", "Motor7.csv", 7);
-	}
-
+		System.out.println("All done.");
+	} // end main method
 }
