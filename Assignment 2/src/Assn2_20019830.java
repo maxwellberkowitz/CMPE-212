@@ -36,8 +36,6 @@ public class Assn2_20019830 {
 					if(surgeAvgs[i] > 8)
 						currentExceeded = ", ***Current Exceeded***";
 					writer.printf("%n%d, %d, %.3f%s", surgeTimes.get(i*2), surgeTimes.get((i*2)+1), surgeAvgs[i], currentExceeded);
-					//writer.print(currentExceeded);
-					//writer.println(surgeTimes.get(i*2) + ", " + surgeTimes.get((i*2)+1) + ", " + surgeAvgs[i] + currentExceeded);
 					currentExceeded = "";
 				}
 			}
@@ -115,7 +113,7 @@ public class Assn2_20019830 {
 
 	public static void main(String[] args) {
 		writeSurgeData("Logger.csv", "Motor1.csv", 1);
-		writeSurgeData("Logger.csv", "Motor2.csv", 2); 
+		writeSurgeData("Logger.csv", "Motor2.csv", 2);
 		writeSurgeData("Logger.csv", "Motor3.csv", 3); 
 		writeSurgeData("Logger.csv", "Motor4.csv", 4);
 		writeSurgeData("Logger.csv", "Motor5.csv", 5); 
