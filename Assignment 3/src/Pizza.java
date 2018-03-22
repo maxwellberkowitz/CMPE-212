@@ -1,6 +1,10 @@
 import java.io.Serializable;
 import java.text.DecimalFormat;
-
+/**
+ * Pizza is an object that defines a small, medium, or large pizza with cheese and optional pepperoni and mushrooms.
+ * Pizza objects are instantiated within LineItem objects to be used in the PizzaOrderSystem class.
+ * @author Max Berkowitz
+ */
 public class Pizza implements Serializable{
 
 	private static final long serialVersionUID = -6789654590912980891L;
@@ -19,6 +23,8 @@ public class Pizza implements Serializable{
 	 */
 	// 4 parameter constructor that invokes mutators
 	public Pizza(String size, String cheese, String mushrooms, String pepperoni) throws IllegalPizza {
+		if(size == null || cheese == null || mushrooms == null || pepperoni == null)
+			throw new IllegalPizza("Parameters cannot be null");
 		setSize(size);
 		setCheese(cheese);
 		setToppings(mushrooms, pepperoni);
@@ -40,7 +46,7 @@ public class Pizza implements Serializable{
 	 * @throws IllegalPizza if size is not small, medium, or large
 	 */
 	private void setSize(String size) throws IllegalPizza{
-		if (size.equals("small") || cheese.equals("medium") || cheese.equals("large"))
+		if (size.equalsIgnoreCase("small") || size.equalsIgnoreCase("medium") || size.equalsIgnoreCase("large"))
 			this.size = size;
 		else
 			throw new IllegalPizza("Illegal size");
@@ -52,7 +58,7 @@ public class Pizza implements Serializable{
 	 * @throws IllegalPizza if cheese is not single, double, or triple
 	 */
 	private void setCheese(String cheese) throws IllegalPizza{
-		if (cheese.equals("single") || cheese.equals("double") || cheese.equals("triple"))
+		if (cheese.equalsIgnoreCase("single") || cheese.equalsIgnoreCase("double") || cheese.equalsIgnoreCase("triple"))
 			this.cheese = cheese;
 		else
 			throw new IllegalPizza("Illegal cheese");
@@ -65,14 +71,14 @@ public class Pizza implements Serializable{
 	 * @throws IllegalPizza
 	 */
 	private void setToppings(String mushrooms, String pepperoni) throws IllegalPizza{
-		if(pepperoni.equals("none") && !mushrooms.equals("none")) // If pizza has mushrooms but no pepperoni
+		if(pepperoni.equalsIgnoreCase("none") && !mushrooms.equalsIgnoreCase("none")) // If pizza has mushrooms but no pepperoni
 			throw new IllegalPizza("Illegal mushroom pepperoni combo");
-		if ((mushrooms.equals("none") ||
-			mushrooms.equals("single") ||
-			mushrooms.equals("double")) &&
-			(pepperoni.equals("none") ||
-			pepperoni.equals("single") ||
-			pepperoni.equals("double"))) { // If pizza mushrooms and pepperoni are valid quanitities
+		if ((mushrooms.equalsIgnoreCase("none") ||
+			mushrooms.equalsIgnoreCase("single") ||
+			mushrooms.equalsIgnoreCase("double")) &&
+			(pepperoni.equalsIgnoreCase("none") ||
+			pepperoni.equalsIgnoreCase("single") ||
+			pepperoni.equalsIgnoreCase("double"))) { // If pizza mushrooms and pepperoni are valid quanitities
 			this.mushrooms = mushrooms;
 			this.pepperoni = pepperoni;
 		}
@@ -90,26 +96,26 @@ public class Pizza implements Serializable{
  */
 	private void setCost(String size, String cheese, String mushrooms, String pepperoni) throws IllegalPizza{
 		// Assign base cost based on size
-		if(size.equals("small"))
+		if(size.equalsIgnoreCase("small"))
 			cost = 7.00;
-		else if (size.equals("medium"))
+		else if (size.equalsIgnoreCase("medium"))
 			cost = 9.00;
-		else if (size.equals("large"))
+		else if (size.equalsIgnoreCase("large"))
 			cost = 11.00;
 		else
 			throw new IllegalPizza("Illegal size");
 		// Add additional topping costs as applicable
-		if(cheese.equals("double"))
+		if(cheese.equalsIgnoreCase("double"))
 			cost += 1.50;
-		else if(cheese.equals("triple"))
+		else if(cheese.equalsIgnoreCase("triple"))
 			cost += 3.00;
-		if(mushrooms.equals("single"))
+		if(mushrooms.equalsIgnoreCase("single"))
 			cost += 1.50;
-		else if(mushrooms.equals("double"))
+		else if(mushrooms.equalsIgnoreCase("double"))
 			cost += 3.00;
-		if(pepperoni.equals("single"))
+		if(pepperoni.equalsIgnoreCase("single"))
 			cost += 1.50;
-		else if(pepperoni.equals("double"))
+		else if(pepperoni.equalsIgnoreCase("double"))
 			cost += 3.00;
 	} // end setCost mutator 
 	
@@ -132,11 +138,11 @@ public class Pizza implements Serializable{
 		DecimalFormat decimalFormat = new DecimalFormat("#.00");
 		String mushString = mushrooms;
 		String pepString = pepperoni;
-		if (mushrooms.equals("none"))
+		if (mushrooms.equalsIgnoreCase("none"))
 			mushString = "no";
-		if (pepperoni.equals("none"))
+		if (pepperoni.equalsIgnoreCase("none"))
 			pepString = "no";
-		String s = size + " pizza, " + cheese + " cheese, " + mushString + " mushrooms, " + pepString + " pepperoni. Cost: $" + decimalFormat.format(cost) + " each.";
+		String s = size.toLowerCase() + " pizza, " + cheese.toLowerCase() + " cheese, " + mushString.toLowerCase() + " mushrooms, " + pepString.toLowerCase() + " pepperoni. Cost: $" + decimalFormat.format(cost) + " each.";
 		return s;
 	} // end toString
 	
@@ -148,10 +154,10 @@ public class Pizza implements Serializable{
 	public boolean equals(Object otherObject) {
 		if (otherObject instanceof Pizza) {
 			Pizza otherP = (Pizza)otherObject;
-			if (this.size.equals(otherP.size) && 
-				this.cheese.equals(otherP.cheese) &&
-				this.mushrooms.equals(otherP.mushrooms) &&
-				this.pepperoni.equals(otherP.pepperoni));
+			if (size.equalsIgnoreCase(otherP.size) && 
+				cheese.equalsIgnoreCase(otherP.cheese) &&
+				mushrooms.equalsIgnoreCase(otherP.mushrooms) &&
+				pepperoni.equalsIgnoreCase(otherP.pepperoni))
 			return true;
 		}
 		return false;
