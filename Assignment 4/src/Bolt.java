@@ -10,6 +10,8 @@ public abstract class Bolt extends Fastener {
 		super(m,g,s,t);
 		setDiameterThreadSize(diameterThreadSize);
 		setLength(length);
+		setMaterial(material);
+		setFinish(finish);
 	}
 	
 	private void setDiameterThreadSize(String diameterThreadSize) throws IllegalFastener{
@@ -43,5 +45,26 @@ public abstract class Bolt extends Fastener {
 			this.length = length;
 		else
 			throw new IllegalFastener("Illegal length");
+	}
+	
+	private void setMaterial(String material) throws IllegalFastener{
+		if(material.equalsIgnoreCase("Steel") || material.equalsIgnoreCase("Stainless Steel") || material.equalsIgnoreCase("Brass"))
+			this.material = material;
+		else
+			throw new IllegalFastener("Illegal Material");
+	}
+	
+	private void setFinish(String finish) throws IllegalFastener{
+		if(this.material.equalsIgnoreCase("Steel") && 
+		  (finish.equalsIgnoreCase("Chrome") || 
+		   finish.equalsIgnoreCase("Hot Dipped Galvanized") || 
+		   finish.equalsIgnoreCase("Plain") || 
+		   finish.equalsIgnoreCase("Yellow Zinc") || 
+		   finish.equalsIgnoreCase("Zinc")))
+			this.finish = finish;
+		else if((this.material.equalsIgnoreCase("Stainless Steel") || this.material.equalsIgnoreCase("Brass")) && (material.equalsIgnoreCase("Plain")))
+			this.finish = finish;
+		else
+			throw new IllegalFastener("Illegal finish");
 	}
 }
