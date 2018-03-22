@@ -1,11 +1,15 @@
-public abstract class Bolt extends Fastener {
+public abstract class Screw extends Fastener{
 	private String diameterThreadSize;
 	private double length;
+	private String head;
+	private String drive;
 	
-	public Bolt(double length, String diameterThreadSize, String material, String finish, double unitPrice, int numberPerUnit) throws IllegalFastener {
+	public Screw(double length, String diameterThreadSize, String material, String finish, String head, String drive, double unitPrice, int numberPerUnit) throws IllegalFastener{
 		super(material, finish, unitPrice, numberPerUnit);
 		setDiameterThreadSize(diameterThreadSize);
 		setLength(length);
+		setHead(head);
+		setDrive(drive);
 	}
 	
 	private void setDiameterThreadSize(String diameterThreadSize) throws IllegalFastener{
@@ -39,5 +43,19 @@ public abstract class Bolt extends Fastener {
 			this.length = length;
 		else
 			throw new IllegalFastener("Illegal length");
+	}
+	
+	private void setHead(String head) throws IllegalFastener{
+		if(head.equalsIgnoreCase("Bugle") || head.equalsIgnoreCase("Flat") || head.equalsIgnoreCase("Oval") || head.equalsIgnoreCase("Pan") || head.equalsIgnoreCase("Round"))
+			this.head = head;
+		else
+			throw new IllegalFastener("Illegal head");
+	}
+	
+	private void setDrive(String drive) throws IllegalFastener{
+		if(drive.equalsIgnoreCase("6-Lobe") || drive.equalsIgnoreCase("Philips") || drive.equalsIgnoreCase("Slotted") || drive.equalsIgnoreCase("Square"))
+			this.drive = drive;
+		else
+			throw new IllegalFastener("Illegal drive");
 	}
 }
