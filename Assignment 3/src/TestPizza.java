@@ -22,6 +22,7 @@ class TestPizza {
 	@Test
 	void testPizza() throws Exception {
 		Pizza pizza1 = new Pizza();
+		System.out.println(pizza1.toString());
 		assertEquals("small pizza, single cheese, no mushrooms, single pepperoni. Cost: $8.50 each.", pizza1.toString());
 		assertEquals(8.50, pizza1.getCost(), 0.01);
 	}
