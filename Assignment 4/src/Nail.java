@@ -1,3 +1,8 @@
+/*
+ * A program designed by Max Berkowitz as an example of hierarchy program design
+ * Student Number 20019830
+ * Max Berkowitz, 2018
+ */
 import java.io.Serializable;
 
 public abstract class Nail extends Fastener implements Serializable{
@@ -20,12 +25,7 @@ public abstract class Nail extends Fastener implements Serializable{
 	
 	private void setSize(String size) throws IllegalFastener{
 		String [] sizes = {"6D", "8D", "10D", "12D", "16D", "60D"};
-		boolean validSize = false;
-		for(String s : sizes) {
-			if(size.equals(s))
-				validSize = true;
-		}
-		if(validSize)
+		if(isIn(size, sizes))
 			this.size = size;
 		else
 			throw new IllegalFastener("Illegal size");
@@ -33,12 +33,7 @@ public abstract class Nail extends Fastener implements Serializable{
 	
 	private void setLength(double length) throws IllegalFastener{
 		double [] lengths = {2, 2.5, 3, 3.25, 3.5, 6};
-		boolean validLength = false;
-		for(double l : lengths) {
-			if(l == length)
-				validLength = true;
-		}
-		if(validLength)
+		if(isIn(length, lengths))
 			this.length = length;
 		else
 			throw new IllegalFastener("Illegal length");
@@ -46,12 +41,7 @@ public abstract class Nail extends Fastener implements Serializable{
 	
 	private void setGauge(double gauge) throws IllegalFastener{
 		double [] gauges = {2, 8, 9, 10.25, 11.5};
-		boolean validGauge = false;
-		for(double g : gauges) {
-			if(g == gauge)
-				validGauge = true;	
-		}
-		if(validGauge)
+		if(isIn(gauge, gauges))
 			this.gauge = gauge;
 		else
 			throw new IllegalFastener("Illegal gauge");
@@ -59,6 +49,6 @@ public abstract class Nail extends Fastener implements Serializable{
 	
 	@Override
 	public String toString() {
-		return super.toString() + ", Size:" + size + ", Length: " + String.valueOf(length)+", " + "Gauge: " + String.valueOf(gauge);
+		return super.toString() + ", Size: " + size + ", Length: " + String.valueOf(length)+", " + "Gauge: " + String.valueOf(gauge);
 	}	// end toString method
 }

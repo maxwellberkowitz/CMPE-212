@@ -1,3 +1,8 @@
+/*
+ * A program designed by Max Berkowitz as an example of hierarchy program design
+ * Student Number 20019830
+ * Max Berkowitz, 2018
+ */
 import java.io.Serializable;
 
 public class WoodScrew extends Screw implements Serializable{
@@ -20,6 +25,6 @@ public class WoodScrew extends Screw implements Serializable{
 	
 	@Override
 	public String toString() {
-		return super.toString() + ", Point: " + point;
+		return "Wood Screw - " + super.toString() + ", Point: " + point;
 	} // toString method
 }
