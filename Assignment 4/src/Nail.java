@@ -5,6 +5,7 @@
  */
 import java.io.Serializable;
 
+//This class is a superclass for all nail-type fasteners
 public abstract class Nail extends Fastener implements Serializable{
 	private static final long serialVersionUID = -1820539242139531294L;
 	private static String material = "Steel";
@@ -21,7 +22,7 @@ public abstract class Nail extends Fastener implements Serializable{
 		setSize(size);
 		setLength(length);
 		setGauge(gauge);
-	}
+	} // end Nail constructor
 	
 	private void setSize(String size) throws IllegalFastener{
 		String [] sizes = {"6D", "8D", "10D", "12D", "16D", "60D"};
@@ -29,7 +30,7 @@ public abstract class Nail extends Fastener implements Serializable{
 			this.size = size;
 		else
 			throw new IllegalFastener("Illegal size");
-	}
+	} // end setSize mutator
 	
 	private void setLength(double length) throws IllegalFastener{
 		double [] lengths = {2, 2.5, 3, 3.25, 3.5, 6};
@@ -37,7 +38,7 @@ public abstract class Nail extends Fastener implements Serializable{
 			this.length = length;
 		else
 			throw new IllegalFastener("Illegal length");
-	}
+	} // end setLength mutator
 	
 	private void setGauge(double gauge) throws IllegalFastener{
 		double [] gauges = {2, 8, 9, 10.25, 11.5};
@@ -45,10 +46,10 @@ public abstract class Nail extends Fastener implements Serializable{
 			this.gauge = gauge;
 		else
 			throw new IllegalFastener("Illegal gauge");
-	}
+	} // end setGauge mutator
 	
 	@Override
 	public String toString() {
-		return super.toString() + ", Size: " + size + ", Length: " + String.valueOf(length)+", " + "Gauge: " + String.valueOf(gauge);
+		return size + " size, " + String.valueOf(length) + "\" long, " + gauge + " gauge, " + super.toString();
 	}	// end toString method
 }

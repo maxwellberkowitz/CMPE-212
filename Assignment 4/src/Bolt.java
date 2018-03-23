@@ -5,6 +5,7 @@
  */
 import java.io.Serializable;
 
+//This class is a superclass for all bolt-type fasteners
 public abstract class Bolt extends OuterThreaded implements Serializable {
 
 	private static final long serialVersionUID = 5249907541088760729L;
@@ -17,7 +18,7 @@ public abstract class Bolt extends OuterThreaded implements Serializable {
 		if(finish.equalsIgnoreCase("Bright") || finish.equalsIgnoreCase("Black Phosphate") || finish.equalsIgnoreCase("ACQ 1000 Hour") || finish.equalsIgnoreCase("Lubricated"))
 			throw new IllegalFastener("Illegal Finish");
 		setLength(length);
-	}
+	} // end Bolt constructor
 	
 	private void setLength(double length) throws IllegalFastener {
 		boolean validLength = false;
@@ -37,7 +38,7 @@ public abstract class Bolt extends OuterThreaded implements Serializable {
 			this.length = length;
 		else
 			throw new IllegalFastener("Illegal length");
-	}
+	} // end setLength mutator
 	
 	@Override
 	public String toString() {

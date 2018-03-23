@@ -5,6 +5,7 @@
  */
 import java.io.Serializable;
 
+// This class is at the bottom of the hierarchy, and is a specific type of bolt
 public class CarriageBolt extends Bolt implements Serializable{
 	private static final long serialVersionUID = 1181646945813279233L;
 
@@ -15,5 +16,5 @@ public class CarriageBolt extends Bolt implements Serializable{
 	@Override
 	public String toString() {
 		return "Carriage Bolt " + super.toString();
-	} // toString method
+	} // end toString method
 }

@@ -5,6 +5,7 @@
  */
 import java.io.Serializable;
 
+//This class is a superclass for all screw-type fasteners
 public abstract class Screw extends OuterThreaded implements Serializable{
 	private static final long serialVersionUID = -2626148834126185519L;
 	private double length;
@@ -18,7 +19,7 @@ public abstract class Screw extends OuterThreaded implements Serializable{
 		setLength(length);
 		setHead(head);
 		setDrive(drive);
-	}
+	} // end Screw constructor
 	
 	private void setLength(double length) throws IllegalFastener {
 		boolean validLength = false;
@@ -38,24 +39,24 @@ public abstract class Screw extends OuterThreaded implements Serializable{
 			this.length = length;
 		else
 			throw new IllegalFastener("Illegal length");
-	}
+	} // end setLength mutator
 	
 	private void setHead(String head) throws IllegalFastener{
 		if(head.equalsIgnoreCase("Bugle") || head.equalsIgnoreCase("Flat") || head.equalsIgnoreCase("Oval") || head.equalsIgnoreCase("Pan") || head.equalsIgnoreCase("Round"))
 			this.head = head;
 		else
 			throw new IllegalFastener("Illegal head");
-	}
+	} // end setHead mutator
 	
 	private void setDrive(String drive) throws IllegalFastener{
 		if(drive.equalsIgnoreCase("6-Lobe") || drive.equalsIgnoreCase("Philips") || drive.equalsIgnoreCase("Slotted") || drive.equalsIgnoreCase("Square"))
 			this.drive = drive;
 		else
 			throw new IllegalFastener("Illegal drive");
-	}
+	} // end setDrive mutator
 	
 	@Override
 	public String toString() {
-		return super.toString() + ", Length: " + String.valueOf(length) + ", Head: " + head + ", Drive: " + drive;
+		return head + " head, " + drive + " drive, " + length + "\" long, " + super.toString();
 	} // end toString method
 }

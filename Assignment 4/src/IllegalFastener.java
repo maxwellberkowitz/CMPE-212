@@ -5,14 +5,11 @@
  */
 import java.io.Serializable;
 
+// The exception thrown for all cases of a needed exception in the Fastener hierarchy
 public class IllegalFastener extends Exception implements Serializable{
 
 	private static final long serialVersionUID = -5562365087370073412L;
 
-	/**
-	 * Passes along the message supplied to the exception.
-	 * @param message A specific message.
-	 */
 	public IllegalFastener(String message) {
 		super(message);
 	}
