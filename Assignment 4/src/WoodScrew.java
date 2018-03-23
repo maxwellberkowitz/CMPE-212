@@ -8,9 +8,9 @@ public class WoodScrew extends Screw{
 	}
 	
 	private void setPoint(String point) throws IllegalFastener{
-		if(point.equalsIgnoreCase("") || point.equalsIgnoreCase("Philips") || point.equalsIgnoreCase("Slotted") || point.equalsIgnoreCase("Square"))
+		if(point.equalsIgnoreCase("Double Cut") || point.equalsIgnoreCase("Sharp") || point.equalsIgnoreCase("Type 17"))
 			this.point = point;
 		else
-			throw new IllegalFastener("Illegal head");
+			throw new IllegalFastener("Illegal point");
 	}
 }
