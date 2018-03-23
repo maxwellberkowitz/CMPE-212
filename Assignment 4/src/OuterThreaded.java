@@ -5,12 +5,11 @@
  */
 import java.io.Serializable;
 
-public abstract class InnerThreaded extends Fastener implements Serializable{
-
-	private static final long serialVersionUID = -5324171313207802043L;
+public abstract class OuterThreaded extends Fastener implements Serializable{
+	private static final long serialVersionUID = 7255698281043262203L;
 	private String diameterThreadSize;
 	
-	public InnerThreaded(String diameterThreadSize, String material, String finish, double unitPrice, int numberPerUnit) throws IllegalFastener{
+	public OuterThreaded(String diameterThreadSize, String material, String finish, double unitPrice, int numberPerUnit) throws IllegalFastener{
 		super(material, finish, unitPrice, numberPerUnit);
 		if(diameterThreadSize == null)
 			throw new IllegalFastener("Parameters cannot be null");
@@ -27,6 +26,6 @@ public abstract class InnerThreaded extends Fastener implements Serializable{
 	
 	@Override
 	public String toString() {
-		return super.toString() + ", Thread Size: " + diameterThreadSize;
+		return diameterThreadSize  + " thread, " + super.toString();
 	} // toString method
 }

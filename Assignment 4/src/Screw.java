@@ -1,35 +1,24 @@
 /*
  * A program designed by Max Berkowitz as an example of hierarchy program design
- * Student Number 20019830
+ * NetID 15mab25
  * Max Berkowitz, 2018
  */
 import java.io.Serializable;
 
-public abstract class Screw extends Fastener implements Serializable{
+public abstract class Screw extends OuterThreaded implements Serializable{
 	private static final long serialVersionUID = -2626148834126185519L;
-	private String diameterThreadSize;
 	private double length;
 	private String head;
 	private String drive;
-	private String material;
 	
 	public Screw(double length, String diameterThreadSize, String material, String finish, String head, String drive, double unitPrice, int numberPerUnit) throws IllegalFastener{
-		super(material, finish, unitPrice, numberPerUnit);
+		super(diameterThreadSize, material, finish, unitPrice, numberPerUnit);
 		if(diameterThreadSize == null || head == null || drive == null || finish.equalsIgnoreCase("Bright") || finish.equalsIgnoreCase("Hot Dipped Galvanized"))
 			throw new IllegalFastener("Parameters cannot be null");
-		setDiameterThreadSize(diameterThreadSize);
 		setLength(length);
 		setHead(head);
 		setDrive(drive);
 	}
-	
-	private void setDiameterThreadSize(String diameterThreadSize) throws IllegalFastener{
-		String [] sizes = {"#8-13", "#8-15", "#8-32", "#10-13", "#10-24", "#10-32", "1/4-20", "5/16-18", "3/8-16", "7/16-14", "1/2-13", "5/8-11", "3/4-10"}; 
-		if (isIn(diameterThreadSize, sizes))
-			this.diameterThreadSize = diameterThreadSize;
-		else
-			throw new IllegalFastener("Illegal size");
-	} // end setDiameterThreadSize mutator
 	
 	private void setLength(double length) throws IllegalFastener {
 		boolean validLength = false;

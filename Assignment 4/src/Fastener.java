@@ -1,6 +1,6 @@
 /*
  * A program designed by Max Berkowitz as an example of hierarchy program design
- * Student Number 20019830
+ * NetID 15mab25
  * Max Berkowitz, 2018
  */
 import java.io.Serializable;
@@ -92,6 +92,6 @@ public abstract class Fastener implements Serializable {
 	
 	// Method returns order cost as a String
 	public double getOrderCost(int order) {
-		return order * numberPerUnit * unitPrice;
+		return order * unitPrice;
 	} // getOrderCost method
 }

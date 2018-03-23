@@ -1,11 +1,11 @@
 /*
  * A program designed by Max Berkowitz as an example of hierarchy program design
- * Student Number 20019830
+ * NetID 15mab25
  * Max Berkowitz, 2018
  */
 import java.io.Serializable;
 
-public class WoodScrew extends Screw implements Serializable{
+public class WoodScrew extends Screw implements Serializable {
 	private static final long serialVersionUID = 5822653680337943157L;
 	private String point;
 	
