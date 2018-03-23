@@ -1,4 +1,7 @@
-public abstract class Nail extends Fastener{
+import java.io.Serializable;
+
+public abstract class Nail extends Fastener implements Serializable{
+	private static final long serialVersionUID = -1820539242139531294L;
 	private static String material = "Steel";
 	private String size;
 	private double length;
@@ -6,6 +9,10 @@ public abstract class Nail extends Fastener{
 	
 	public Nail(String size, double length, double gauge, String finish, double unitPrice, int numberPerUnit) throws IllegalFastener{
 		super(material, finish, unitPrice, numberPerUnit);
+		if(size == null)
+			throw new IllegalFastener("Parameters cannot be null");
+		if(finish.equalsIgnoreCase("Black Phosphate") || finish.equalsIgnoreCase("ACQ 1000 Hour") || finish.equalsIgnoreCase("Lubricated"))
+			throw new IllegalFastener("Illegal finish");
 		setSize(size);
 		setLength(length);
 		setGauge(gauge);
@@ -49,4 +56,9 @@ public abstract class Nail extends Fastener{
 		else
 			throw new IllegalFastener("Illegal gauge");
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", Size:" + size + ", Length: " + String.valueOf(length)+", " + "Gauge: " + String.valueOf(gauge);
+	}	// end toString method
 }

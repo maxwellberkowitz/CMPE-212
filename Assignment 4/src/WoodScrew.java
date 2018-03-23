@@ -1,9 +1,13 @@
+import java.io.Serializable;
 
-public class WoodScrew extends Screw{
+public class WoodScrew extends Screw implements Serializable{
+	private static final long serialVersionUID = 5822653680337943157L;
 	private String point;
 	
 	public WoodScrew(double length, String diameterThreadSize, String material, String finish, String head, String drive, String point, double unitPrice, int numberPerUnit) throws IllegalFastener{
 		super(length, diameterThreadSize, material, finish, head, drive, unitPrice, numberPerUnit);
+		if(point == null)
+			throw new IllegalFastener("Parameters cannot be null");
 		setPoint(point);
 	}
 	
@@ -13,4 +17,9 @@ public class WoodScrew extends Screw{
 		else
 			throw new IllegalFastener("Illegal point");
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", Point: " + point;
+	} // toString method
 }

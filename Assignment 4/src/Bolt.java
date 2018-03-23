@@ -1,9 +1,17 @@
-public abstract class Bolt extends Fastener {
+import java.io.Serializable;
+
+public abstract class Bolt extends Fastener implements Serializable{
+
+	private static final long serialVersionUID = 5249907541088760729L;
 	private String diameterThreadSize;
 	private double length;
 	
 	public Bolt(double length, String diameterThreadSize, String material, String finish, double unitPrice, int numberPerUnit) throws IllegalFastener {
 		super(material, finish, unitPrice, numberPerUnit);
+		if(diameterThreadSize == null)
+			throw new IllegalFastener("Parameters cannot be null");
+		if(finish.equalsIgnoreCase("Bright") || finish.equalsIgnoreCase("Black Phosphate") || finish.equalsIgnoreCase("ACQ 1000 Hour") || finish.equalsIgnoreCase("Lubricated"))
+			throw new IllegalFastener("Illegal Finish");
 		setDiameterThreadSize(diameterThreadSize);
 		setLength(length);
 	}
@@ -40,4 +48,9 @@ public abstract class Bolt extends Fastener {
 		else
 			throw new IllegalFastener("Illegal length");
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", Length: " + String.valueOf(length) + " , Thread Size: " + diameterThreadSize;
+	} // end toString method
 }

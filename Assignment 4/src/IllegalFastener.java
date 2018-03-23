@@ -1,6 +1,8 @@
-public class IllegalFastener extends Exception {
+import java.io.Serializable;
 
-	private static final long serialVersionUID = 3292889047196973345L;
+public class IllegalFastener extends Exception implements Serializable{
+
+	private static final long serialVersionUID = -5562365087370073412L;
 
 	/**
 	 * Passes along the message supplied to the exception.

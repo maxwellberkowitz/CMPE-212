@@ -1,8 +1,16 @@
-public abstract class Nut extends Fastener{
+import java.io.Serializable;
+
+public abstract class Nut extends Fastener implements Serializable{
+
+	private static final long serialVersionUID = -5324171313207802043L;
 	private String diameterThreadSize;
 	
 	public Nut(String diameterThreadSize, String material, String finish, double unitPrice, int numberPerUnit) throws IllegalFastener{
 		super(material, finish, unitPrice, numberPerUnit);
+		if(diameterThreadSize == null)
+			throw new IllegalFastener("Parameters cannot be null");
+		if(finish.equalsIgnoreCase("Bright") || finish.equalsIgnoreCase("Hot Dipped Galvanized") || finish.equalsIgnoreCase("Black Phosphate") || finish.equalsIgnoreCase("ACQ 1000 Hour") || finish.equalsIgnoreCase("Lubricated"))
+			throw new IllegalFastener("Illegal Finish");
 		setDiameterThreadSize(diameterThreadSize);
 	}
 	
@@ -18,4 +26,9 @@ public abstract class Nut extends Fastener{
 		else
 			throw new IllegalFastener("Illegal size");
 	} // end setDiameterThreadSize mutator
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", Thread Size: " + diameterThreadSize;
+	} // toString method
 }

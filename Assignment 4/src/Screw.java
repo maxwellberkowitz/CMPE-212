@@ -1,11 +1,17 @@
-public abstract class Screw extends Fastener{
+import java.io.Serializable;
+
+public abstract class Screw extends Fastener implements Serializable{
+	private static final long serialVersionUID = -2626148834126185519L;
 	private String diameterThreadSize;
 	private double length;
 	private String head;
 	private String drive;
+	private String material;
 	
 	public Screw(double length, String diameterThreadSize, String material, String finish, String head, String drive, double unitPrice, int numberPerUnit) throws IllegalFastener{
 		super(material, finish, unitPrice, numberPerUnit);
+		if(diameterThreadSize == null || head == null || drive == null || finish.equalsIgnoreCase("Bright") || finish.equalsIgnoreCase("Hot Dipped Galvanized"))
+			throw new IllegalFastener("Parameters cannot be null");
 		setDiameterThreadSize(diameterThreadSize);
 		setLength(length);
 		setHead(head);
@@ -58,4 +64,9 @@ public abstract class Screw extends Fastener{
 		else
 			throw new IllegalFastener("Illegal drive");
 	}
+	
+	@Override
+	public String toString() {
+		return super.toString() + ", Length: " + String.valueOf(length) + ", Head: " + head + ", Drive: " + drive;
+	} // end toString method
 }
